@@ -12,10 +12,6 @@ public class RunState : PlayerState
         //Start RunAnim anim here
     }
 
-    public override void Exit(PlayerCharacter character)
-    {
-        //Do nothing here?
-    }
 
     public override void HandleInput(PlayerCharacter character)
     {
@@ -29,18 +25,23 @@ public class RunState : PlayerState
         {
             this.moveDirection += Vector3.left;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            this.ChangeState(character, new AirborneState());
+        }
 
         if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.RightArrow) &&
             !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow) &&
             !Input.GetKey(KeyCode.Space))
         {
-            character.currentState = new IdleState();
-            character.currentState.Enter(character);
+            this.ChangeState(character, new IdleState());
         }
     }
 
     public override void UpdateState(PlayerCharacter character)
     {
+        Debug.LogError("RunUpdate");
+
         Vector3 targetPosition = character.playerRb.position + (this.moveDirection * this.moveSpeed * Time.fixedDeltaTime);
         character.playerRb.MovePosition(targetPosition);
     }

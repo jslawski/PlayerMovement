@@ -8,27 +8,19 @@ public class IdleState : PlayerState
     {
         //Play idle anim here
         character.playerRb.useGravity = false;
-    }
-
-    public override void Exit(PlayerCharacter character)
-    {
-        //Do nothing here?
+        character.playerRb.velocity = Vector3.zero;
     }
 
     public override void HandleInput(PlayerCharacter character)
     {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ||
             Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {            
-            character.currentState = new RunState();            
-            this.Exit(character);
-            character.currentState.Enter(character);
+        {
+            this.ChangeState(character, new RunState());
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            this.ChangeState(character, new AirborneState());
         }
     }
-
-    public override void UpdateState(PlayerCharacter character)
-    { 
-        //Nothing here
-    }
-
 }
