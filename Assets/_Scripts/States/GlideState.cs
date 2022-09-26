@@ -9,6 +9,9 @@ public class GlideState : AirborneState
         character.characterAnimator.SetBool("Glide", true);
         this.moveSpeed = 5f;
         this.maxFallSpeed = 0.5f;
+
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/glide");
+        character.audioSource.Play();
     }
 
     public override void Exit(PlayerCharacter character)
@@ -39,6 +42,10 @@ public class GlideState : AirborneState
         if (this.IsGrounded(character) == true)
         {            
             this.ChangeState(character, new IdleState());
+
+            character.audioSource.clip = Resources.Load<AudioClip>("Audio/land");
+            character.audioSource.Play();
+
             return;
         }
 

@@ -9,6 +9,9 @@ public class FallState : AirborneState
         base.Enter(character);
         character.playerRb.velocity = Vector3.zero;
         character.characterAnimator.SetBool("Fall", true);
+
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/fall");
+        character.audioSource.Play();
     }
 
     public override void Exit(PlayerCharacter character)
@@ -39,6 +42,10 @@ public class FallState : AirborneState
         if (this.IsGrounded(character) == true)
         {            
             this.ChangeState(character, new IdleState());
+
+            character.audioSource.clip = Resources.Load<AudioClip>("Audio/land");
+            character.audioSource.Play();
+
             return;
         }
 

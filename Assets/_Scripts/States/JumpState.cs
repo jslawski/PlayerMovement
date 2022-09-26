@@ -14,6 +14,10 @@ public class JumpState : AirborneState
     {
         character.characterAnimator.SetBool("Jump", true);
         character.playerRb.AddForce(Vector3.up * this.initialJumpForce, ForceMode.Impulse);
+
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/jump");
+        character.audioSource.Play();
+
         base.Enter(character);
     }
 

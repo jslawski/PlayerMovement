@@ -9,7 +9,8 @@ public class RunState : PlayerState
 
     public override void Enter(PlayerCharacter character)
     {
-
+        Debug.LogError("EnterRun");
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/run");
     }
 
     public override void Exit(PlayerCharacter character)
@@ -63,6 +64,11 @@ public class RunState : PlayerState
         {
             Vector3 targetPosition = character.playerRb.position + moveVector;
             character.playerRb.MovePosition(targetPosition);
+
+            if (character.audioSource.isPlaying == false)
+            {
+                character.audioSource.Play();
+            }
         }
     }
 }

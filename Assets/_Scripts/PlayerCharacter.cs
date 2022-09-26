@@ -12,6 +12,8 @@ public class PlayerCharacter : MonoBehaviour
     public BoxCollider playerCollider;
     [HideInInspector]
     public Animator characterAnimator;
+    [HideInInspector]
+    public AudioSource audioSource;
 
     public LayerMask groundLayer;
     
@@ -21,6 +23,7 @@ public class PlayerCharacter : MonoBehaviour
         this.playerRb = GetComponent<Rigidbody>();
         this.playerCollider = GetComponent<BoxCollider>();
         this.characterAnimator = GetComponentInChildren<Animator>();
+        this.audioSource = GetComponent<AudioSource>();
         this.currentState = new FallState();
         this.currentState.Enter(this);
     }

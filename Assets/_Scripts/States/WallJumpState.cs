@@ -25,6 +25,9 @@ public class WallJumpState : PlayerState
             character.characterAnimator.SetBool("WallJumpLeft", true);
         }
 
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/wallJump");
+        character.audioSource.Play();
+
         character.playerRb.useGravity = false;
     }
 

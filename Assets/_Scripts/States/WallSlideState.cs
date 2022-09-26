@@ -21,6 +21,9 @@ public class WallSlideState : PlayerState
             this.latchedWall = WallSide.Right;
             character.characterAnimator.SetBool("SlideRight", true);
         }
+
+        character.audioSource.clip = Resources.Load<AudioClip>("Audio/wallSlide");
+        character.audioSource.Play();
     }
 
     public override void Exit(PlayerCharacter character)
@@ -68,6 +71,10 @@ public class WallSlideState : PlayerState
         if (this.IsGrounded(character) == true)
         {
             this.ChangeState(character, new IdleState());
+
+            character.audioSource.clip = Resources.Load<AudioClip>("Audio/land");
+            character.audioSource.Play();
+
             return;
         }
     }
