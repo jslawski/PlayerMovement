@@ -33,12 +33,12 @@ public class JumpState : AirborneState
 
     public override void UpdateState(PlayerCharacter character)
     {
-        base.UpdateState(character);
-
         if (this.stillJumping == true && this.residualJumpTime > 0.0f)
         {
             character.playerRb.AddForce(Vector3.up * this.residualJumpForce, ForceMode.Force);
             this.residualJumpTime -= Time.fixedDeltaTime;
         }
+
+        base.UpdateState(character);
     }
 }

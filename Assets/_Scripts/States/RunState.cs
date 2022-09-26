@@ -46,7 +46,12 @@ public class RunState : PlayerState
             return;
         }
 
-        Vector3 targetPosition = character.playerRb.position + (this.moveDirection * this.moveSpeed * Time.fixedDeltaTime);
-        character.playerRb.MovePosition(targetPosition);
+        Vector3 moveVector = this.moveDirection * this.moveSpeed * Time.fixedDeltaTime;
+
+        if (this.IsNearWall(character, moveVector) == false)
+        {
+            Vector3 targetPosition = character.playerRb.position + moveVector;
+            character.playerRb.MovePosition(targetPosition);
+        }
     }
 }

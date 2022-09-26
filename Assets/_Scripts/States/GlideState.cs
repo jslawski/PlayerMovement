@@ -21,16 +21,25 @@ public class GlideState : AirborneState
         }
     }
 
-    public override void UpdateState(PlayerCharacter character)
+    public override void Exit(PlayerCharacter character)
     {
-        base.UpdateState(character);
-
-        if (this.IsGrounded(character) == true)
+        if (this.distanceToGround > 0.0f)
         {
             Vector3 correctionPosition = character.playerRb.position + (Vector3.down * this.distanceToGround);
             character.playerRb.MovePosition(correctionPosition);
+        }
+
+        base.Exit(character);
+    }
+
+    public override void UpdateState(PlayerCharacter character)
+    {
+        if (this.IsGrounded(character) == true)
+        {            
             this.ChangeState(character, new IdleState());
             return;
         }
+
+        base.UpdateState(character);
     }
 }

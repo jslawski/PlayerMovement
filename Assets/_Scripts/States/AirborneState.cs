@@ -14,6 +14,14 @@ public class AirborneState : PlayerState
         character.playerRb.useGravity = true;
     }
 
+    public override void Exit(PlayerCharacter character)
+    {
+        if (this.nearestWallLatchPoint != Vector3.zero)
+        {
+            character.playerRb.MovePosition(this.nearestWallLatchPoint);
+        }
+    }
+
     public override void HandleInput(PlayerCharacter character)
     {
         this.moveDirection = Vector3.zero;
@@ -35,7 +43,15 @@ public class AirborneState : PlayerState
             character.playerRb.velocity = new Vector3(character.playerRb.velocity.x, -this.maxFallSpeed, 0.0f);
         }
 
-        Vector3 targetPosition = character.playerRb.position + (this.moveDirection * this.moveSpeed * Time.fixedDeltaTime);
+        Vector3 moveVector = this.moveDirection * this.moveSpeed * Time.fixedDeltaTime;
+
+        if (this.IsNearWall(character, moveVector) == true)
+        {
+            this.ChangeState(character, new WallSlideState());
+            return;
+        }
+
+        Vector3 targetPosition = character.playerRb.position + moveVector;
         character.playerRb.MovePosition(targetPosition);          
     }
 }
