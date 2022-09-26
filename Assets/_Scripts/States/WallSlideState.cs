@@ -11,15 +11,15 @@ public class WallSlideState : PlayerState
 
     public override void Enter(PlayerCharacter character)
     {
-        //Play wallslide anim
-
         if (this.IsWallInDirection(character, Vector3.left) == true)
         {
             this.latchedWall = WallSide.Left;
+            character.characterAnimator.SetBool("SlideLeft", true);
         }
         else
         {
             this.latchedWall = WallSide.Right;
+            character.characterAnimator.SetBool("SlideRight", true);
         }
     }
 
@@ -30,6 +30,9 @@ public class WallSlideState : PlayerState
             Vector3 correctionPosition = character.playerRb.position + (Vector3.down * this.distanceToGround);
             character.playerRb.MovePosition(correctionPosition);
         }
+
+        character.characterAnimator.SetBool("SlideRight", false);
+        character.characterAnimator.SetBool("SlideLeft", false);
     }
 
     public override void HandleInput(PlayerCharacter character)

@@ -8,7 +8,7 @@ public class FallState : AirborneState
     {
         base.Enter(character);
         character.playerRb.velocity = Vector3.zero;
-        //Play fall anim here?
+        character.characterAnimator.SetBool("Fall", true);
     }
 
     public override void Exit(PlayerCharacter character)
@@ -18,6 +18,8 @@ public class FallState : AirborneState
             Vector3 correctionPosition = character.playerRb.position + (Vector3.down * this.distanceToGround);
             character.playerRb.MovePosition(correctionPosition);
         }
+
+        character.characterAnimator.SetBool("Fall", false);
 
         base.Exit(character);
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class WallJumpState : PlayerState
 {
     private enum WallSide { Left, Right, None }
-    private WallSide latchedWall = WallSide.None;
 
     Vector3 jumpDirection;
     float jumpSpeed = 20f;
@@ -17,13 +16,13 @@ public class WallJumpState : PlayerState
 
         if (this.IsWallInDirection(character, Vector3.left) == true)
         {
-            this.latchedWall = WallSide.Left;
             this.jumpDirection += Vector3.right;
+            character.characterAnimator.SetBool("WallJumpRight", true);
         }
         else
         {
-            this.latchedWall = WallSide.Right;
             this.jumpDirection += Vector3.left;
+            character.characterAnimator.SetBool("WallJumpLeft", true);
         }
 
         character.playerRb.useGravity = false;
@@ -35,6 +34,9 @@ public class WallJumpState : PlayerState
         {
             character.playerRb.MovePosition(this.nearestWallLatchPoint);
         }
+
+        character.characterAnimator.SetBool("WallJumpLeft", false);
+        character.characterAnimator.SetBool("WallJumpRight", false);
     }
 
     public override void UpdateState(PlayerCharacter character)

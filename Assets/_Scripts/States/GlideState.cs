@@ -6,19 +6,9 @@ public class GlideState : AirborneState
 {
     public override void Enter(PlayerCharacter character)
     {
-        //Play glide anim here
+        character.characterAnimator.SetBool("Glide", true);
         this.moveSpeed = 5f;
         this.maxFallSpeed = 0.5f;
-    }
-
-    public override void HandleInput(PlayerCharacter character)
-    {
-        base.HandleInput(character);
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            this.ChangeState(character, new FallState());
-        }
     }
 
     public override void Exit(PlayerCharacter character)
@@ -29,7 +19,19 @@ public class GlideState : AirborneState
             character.playerRb.MovePosition(correctionPosition);
         }
 
+        character.characterAnimator.SetBool("Glide", false);
+
         base.Exit(character);
+    }
+
+    public override void HandleInput(PlayerCharacter character)
+    {
+        base.HandleInput(character);
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            this.ChangeState(character, new FallState());
+        }
     }
 
     public override void UpdateState(PlayerCharacter character)

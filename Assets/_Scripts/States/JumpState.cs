@@ -12,9 +12,16 @@ public class JumpState : AirborneState
 
     public override void Enter(PlayerCharacter character)
     {
-        //Play jump anim here
+        character.characterAnimator.SetBool("Jump", true);
         character.playerRb.AddForce(Vector3.up * this.initialJumpForce, ForceMode.Impulse);
         base.Enter(character);
+    }
+
+    public override void Exit(PlayerCharacter character)
+    {
+        base.Exit(character);
+
+        character.characterAnimator.SetBool("Jump", false);
     }
 
     public override void HandleInput(PlayerCharacter character)

@@ -10,14 +10,17 @@ public class PlayerCharacter : MonoBehaviour
     public Rigidbody playerRb;
     [HideInInspector]
     public BoxCollider playerCollider;
-    
-    public LayerMask groundLayer;
+    [HideInInspector]
+    public Animator characterAnimator;
 
+    public LayerMask groundLayer;
+    
     // Start is called before the first frame update
     void Start()
     {
         this.playerRb = GetComponent<Rigidbody>();
         this.playerCollider = GetComponent<BoxCollider>();
+        this.characterAnimator = GetComponentInChildren<Animator>();
         this.currentState = new FallState();
         this.currentState.Enter(this);
     }

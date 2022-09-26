@@ -26,8 +26,8 @@ public class PlayerState
 
     public virtual bool IsGrounded(PlayerCharacter character)
     {
-        Vector3 leftOrigin = character.playerRb.position - new Vector3(character.playerCollider.bounds.extents.x, 0.0f, 0.0f);
-        Vector3 rightOrigin = character.playerRb.position + new Vector3(character.playerCollider.bounds.extents.x, 0.0f, 0.0f);
+        Vector3 leftOrigin = character.playerRb.position - new Vector3(character.playerCollider.bounds.extents.x * 0.9f, 0.0f, 0.0f);
+        Vector3 rightOrigin = character.playerRb.position + new Vector3(character.playerCollider.bounds.extents.x * 0.9f, 0.0f, 0.0f);
 
         float raycastMagnitude = character.playerCollider.bounds.extents.y + (Mathf.Abs(character.playerRb.velocity.y) * Time.fixedDeltaTime);
 
@@ -51,8 +51,8 @@ public class PlayerState
 
     public bool IsNearWall(PlayerCharacter character, Vector3 horizontalDirection)
     {
-        Vector3 topOrigin = character.playerRb.position + new Vector3(0.0f, character.playerCollider.bounds.extents.y, 0.0f);
-        Vector3 bottomOrigin = character.playerRb.position - new Vector3(0.0f, character.playerCollider.bounds.extents.y, 0.0f);
+        Vector3 topOrigin = character.playerRb.position + new Vector3(0.0f, character.playerCollider.bounds.extents.y * 0.75f, 0.0f);
+        Vector3 bottomOrigin = character.playerRb.position - new Vector3(0.0f, character.playerCollider.bounds.extents.y * 0.75f, 0.0f);
 
         float raycastMagnitude = character.playerCollider.bounds.extents.x + Mathf.Abs(horizontalDirection.x);
 

@@ -9,9 +9,14 @@ public class RunState : PlayerState
 
     public override void Enter(PlayerCharacter character)
     {
-        //Start RunAnim anim here
+
     }
 
+    public override void Exit(PlayerCharacter character)
+    {
+        character.characterAnimator.SetBool("RunRight", false);
+        character.characterAnimator.SetBool("RunLeft", false);
+    }
 
     public override void HandleInput(PlayerCharacter character)
     {
@@ -20,10 +25,16 @@ public class RunState : PlayerState
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             this.moveDirection += Vector3.right;
+
+            character.characterAnimator.SetBool("RunRight", true);
+            character.characterAnimator.SetBool("RunLeft", false);
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             this.moveDirection += Vector3.left;
+
+            character.characterAnimator.SetBool("RunRight", false);
+            character.characterAnimator.SetBool("RunLeft", true);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -42,7 +53,7 @@ public class RunState : PlayerState
     {
         if (this.IsGrounded(character) == false)
         {
-            this.ChangeState(character, new FallState());
+            this.ChangeState(character, new FallState());           
             return;
         }
 

@@ -5,10 +5,16 @@ using UnityEngine;
 public class IdleState : PlayerState
 {
     public override void Enter(PlayerCharacter character)
-    {
-        //Play idle anim here
+    {        
+        character.characterAnimator.SetBool("Idle", true);
+        
         character.playerRb.useGravity = false;
-        character.playerRb.velocity = Vector3.zero;
+        character.playerRb.velocity = Vector3.zero;        
+    }
+
+    public override void Exit(PlayerCharacter character)
+    {
+        character.characterAnimator.SetBool("Idle", false);
     }
 
     public override void HandleInput(PlayerCharacter character)
