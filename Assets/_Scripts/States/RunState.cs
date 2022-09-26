@@ -9,7 +9,6 @@ public class RunState : PlayerState
 
     public override void Enter(PlayerCharacter character)
     {
-        Debug.LogError("EnterRun");
         character.audioSource.clip = Resources.Load<AudioClip>("Audio/run");
     }
 
@@ -67,6 +66,7 @@ public class RunState : PlayerState
 
             if (character.audioSource.isPlaying == false)
             {
+                character.audioSource.pitch = Random.Range(0.8f, 1.3f);
                 character.audioSource.Play();
             }
         }
