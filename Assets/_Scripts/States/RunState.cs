@@ -27,7 +27,7 @@ public class RunState : PlayerState
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            this.ChangeState(character, new AirborneState());
+            this.ChangeState(character, new JumpState());
         }
 
         if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.RightArrow) &&
@@ -40,7 +40,11 @@ public class RunState : PlayerState
 
     public override void UpdateState(PlayerCharacter character)
     {
-        Debug.LogError("RunUpdate");
+        if (this.IsGrounded(character) == false)
+        {
+            this.ChangeState(character, new FallState());
+            return;
+        }
 
         Vector3 targetPosition = character.playerRb.position + (this.moveDirection * this.moveSpeed * Time.fixedDeltaTime);
         character.playerRb.MovePosition(targetPosition);

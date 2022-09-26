@@ -20,7 +20,7 @@ public class IdleState : PlayerState
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            this.ChangeState(character, new AirborneState());
+            this.ChangeState(character, new JumpState());
         }
     }
 }
