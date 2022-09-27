@@ -14,8 +14,6 @@ public class PlayerState
 
     public virtual void ChangeState(PlayerCharacter character, PlayerState newState)
     {
-        //Debug.LogError(newState);
-
         this.Exit(character);
         character.currentState = newState;
         newState.Enter(character);
